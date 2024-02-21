@@ -122,7 +122,7 @@ void checkPosition() {
       state = "backUpRight"; // left wheel fast back // right wheel slow back
     }
   }
-  if (BACK_LINE_SENSOR >= MAX_LINE_SENSOR_COUNTER) {
+  if (backLineSensorCounter >= MAX_LINE_SENSOR_COUNTER) {
     if (rightLineSensorCounter >= MAX_SUB_LINE_SENSOR_COUTNER) {
       state = "forwardLeft"; // right wheel fast foward // left wheel slow forward
     }
