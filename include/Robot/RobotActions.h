@@ -5,9 +5,11 @@
 
 class RobotActions {
     private:
-        MotorDriver motorDriver;
+        MotorDriver& motorDriver;
     public:
-        RobotActions();
+        RobotActions(MotorDriver& motorDriver)
+            : motorDriver(motorDriver) {
+        }
         void moveForward();
         void spinLeft();
         void spinRight();
