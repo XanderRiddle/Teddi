@@ -17,6 +17,7 @@ class WorldState {
         int getEnemyPosition();
         int getLastEnemyPosition();
         int getCurrentPosition();
+        void setAll(int leftLineSensor, int backLineSensor, int rightLineSensor, int leftIRSensor, int middleIRSensor, int rightIRSensor);
 };
 
 #endif

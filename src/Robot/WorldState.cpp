@@ -44,3 +44,12 @@ int WorldState::getCurrentPosition() {
         return 0;
     }
 }
+
+void WorldState::setAll(int leftLineSensor, int backLineSensor, int rightLineSensor, int leftIRSensor, int middleIRSensor, int rightIRSensor) {
+    lineSensor.setLeftLineSensor(leftLineSensor);
+    lineSensor.setBackLineSensor(backLineSensor);
+    lineSensor.setRightLineSensor(rightLineSensor);
+    irSensor.setLeftIRSensor(leftIRSensor);
+    irSensor.setMiddleIRSensor(middleIRSensor);
+    irSensor.setRightIRSensor(rightIRSensor);
+}

@@ -71,6 +71,10 @@ void test_WorldState(void) {
     lineSensor.setBackLineSensor(1);
     TEST_ASSERT_EQUAL_INT(2, worldState.getCurrentPosition());
     lineSensor.setBackLineSensor(0);
+    worldState.setAll(1, 1, 1, 1, 1, 1);
+    TEST_ASSERT_EQUAL_INT(2, worldState.getCurrentPosition());
+    TEST_ASSERT_EQUAL_INT(2, worldState.getEnemyPosition());
+    worldState.setAll(0, 0, 0, 0, 0, 0);
 }
 
 int main(void) {
