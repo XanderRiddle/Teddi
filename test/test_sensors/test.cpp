@@ -1,8 +1,12 @@
 #include "unity.h"
 #include "Sensors/IRSensor.h"
 #include "Sensors/LineSensor.h"
+#include "Robot/MotorDriver.h"
+#include "Robot/RobotActions.h"
 #include "Robot/WorldState.h"
+#include "Robot/RobotStateTracker.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 //IRSensor irSensor = IRSensor();
 
@@ -77,10 +81,32 @@ void test_WorldState(void) {
     worldState.setAll(0, 0, 0, 0, 0, 0);
 }
 
+void test_IsReverseing(void) {
+    MotorDriver motorDriver = MotorDriver(255);
+    RobotActions robotActions = RobotActions(motorDriver);
+    robotActions.spinLeft();
+    robotActions.spinRight();
+    TEST_ASSERT_TRUE(robotActions.getIsReversingA());
+    TEST_ASSERT_TRUE(robotActions.getIsReversingB());
+    robotActions.setIsReversingA(false);
+    robotActions.setIsReversingB(false);
+    TEST_ASSERT_FALSE(robotActions.getIsReversingA());
+    TEST_ASSERT_FALSE(robotActions.getIsReversingB());
+    robotActions.setIsReversingA(true);
+    robotActions.setIsReversingB(true);
+    TEST_ASSERT_TRUE(robotActions.getIsReversingA());
+    TEST_ASSERT_TRUE(robotActions.getIsReversingB());
+    TEST_ASSERT_TRUE(motorDriver.getIsReversingA());
+    TEST_ASSERT_TRUE(motorDriver.getIsReversingB());
+
+
+}
+
 int main(void) {
     UNITY_BEGIN();
     RUN_TEST(test_IRSensor_set);
     RUN_TEST(test_LineSensor_set);
     RUN_TEST(test_WorldState);
+    RUN_TEST(test_IsReverseing);
     return UNITY_END();
 }

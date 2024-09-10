@@ -1,12 +1,15 @@
 #include <Arduino.h>
 
-// implementation of Slammy Whammy
+// implementation of Tracker
 
 #include "Robot/WorldState.h"
 #include "Robot/RobotActions.h"
 #include "Sensors/IRSensor.h"
 #include "Sensors/LineSensor.h"
 #include "Robot/MotorDriver.h"
+
+long myTime;
+long timeSinceLastAction;
 
 const int BACK_LINE_SENSOR = A4;
 const int LEFT_LINE_SENSOR = A5;
@@ -27,6 +30,7 @@ void moveBackRight();
 
 void pollSensors();
 void robotState();
+void findEnemy();
 
 void setup() {
     pinMode(BACK_LINE_SENSOR, INPUT);
@@ -46,6 +50,7 @@ void setup() {
 void loop() {
     pollSensors();
     robotState();
+    myTime = millis();
 }
 
 void moveForward() {
@@ -90,6 +95,36 @@ void robotState() {
     } else if (worldState.getLastEnemyPosition() == 3) {
         robotActions.moveSharpRight();
     } else {
-        robotActions.spinLeft();
+        findEnemy();
+    }
+}
+//tempory scuff
+void findEnemy() {
+    int i = 0;
+    while(true) {
+        while (i < 2000) {
+            robotActions.spinLeft();
+            delay(1);
+            i++;
+            if (worldState.getLastEnemyPosition() != 0) {
+                break;
+            }
+        }
+        if (worldState.getLastEnemyPosition() != 0) {
+            break;
+        }
+        i = 0;
+        while (i < 2000) {
+            robotActions.spinRight();
+            delay(1);
+            i++;
+            if (worldState.getLastEnemyPosition() != 0) {
+                break;
+            }
+        }
+        if (worldState.getLastEnemyPosition() != 0) {
+            break;
+        }
+        i = 0;
     }
 }
